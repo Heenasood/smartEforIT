@@ -32,7 +32,7 @@ Task("Test")
    Information("******TEST EXECUTION START********");
    MSTest("./BasicUnitTest.dll");
    Information("******TEST EXECUTION COMPLETE********");
-   publishTestResults('FunctionalTests\\TestResults\\**\\*')   
+    
 });
 
 Task("Build")
