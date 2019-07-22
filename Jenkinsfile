@@ -1,4 +1,3 @@
-
 pipeline {
   agent any
   stages {
@@ -29,7 +28,8 @@ pipeline {
     stage('Exit/Artifact') {
       steps {
         echo '****Exiting SmartElector pipeline****'
+        archiveArtifacts(onlyIfSuccessful: true, artifacts: 'generatedFile.dll')
       }
     }
   }
-    }
+}
