@@ -25,10 +25,9 @@ pipeline {
         }
       }
     }
-    stage('Exit/Artifact') {
+    stage('exit') {
       steps {
-        echo '****Exiting SmartElector pipeline****'
-        archiveArtifacts(onlyIfSuccessful: true, artifacts: 'generatedFile.dll')
+        writeFile(file: 'tesrfilebyheena', text: 'tesrfilebyheena.txt')
       }
     }
   }
