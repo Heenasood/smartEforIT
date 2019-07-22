@@ -1,18 +1,3 @@
-def publishTestResults(ResultsFolder) {
-    step([
-            $class: 'BasicUnitTest',
-            thresholdMode: 1,
-            thresholds: [[$class: 'FailedThreshold', failureThreshold: '1']],
-            tools: [[
-                $class: 'UnitTest1',
-                deleteOutputFiles: true,
-                failIfNotNew: true,
-                pattern: ResultsFolder,
-                skipNoTestFiles: false,
-                stopProcessingIfError: true
-            ]]
-        ])
-}
 
 pipeline {
   agent any
@@ -44,13 +29,7 @@ pipeline {
     stage('Exit/Artifact') {
       steps {
         echo '****Exiting SmartElector pipeline****'
-        publishTestResults('test-results\\**\\*')
       }
     }
   }
-    post {
-        always {
-            archiveArtifacts artifacts: 'generatedFile.txt', onlyIfSuccessful: true
-        }
     }
-}
