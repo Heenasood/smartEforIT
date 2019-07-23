@@ -28,6 +28,7 @@ pipeline {
     stage('exit') {
       steps {
         writeFile(file: 'tesrfilebyheena', text: 'tesrfilebyheena.txt')
+        archiveArtifacts(allowEmptyArchive: true, artifacts: '**/test-results/test/*.xml')
       }
     }
   }
