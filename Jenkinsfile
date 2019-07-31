@@ -2,8 +2,17 @@ pipeline {
   agent any
   stages {
     stage('Enter') {
-      steps {
-        echo '************We are enetering GITHUB for building************'
+      parallel {
+        stage('Enter') {
+          steps {
+            echo '************We are enetering GITHUB for building************'
+          }
+        }
+        stage('') {
+          steps {
+            node(label: 'node')
+          }
+        }
       }
     }
     stage('Build') {
