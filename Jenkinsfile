@@ -53,13 +53,11 @@ pipeline {
         }
       }
     }
-    stage('unstash') {
+    stage('unstash/testresult') {
       steps {
         unstash 'builtSourcesthroughinbuild'
-        warnError(message: 'Error : build is unstable', catchInterruptions: true) {
-          catchError(buildResult: 'Fail', stageResult: 'Failureeee', message: 'build failed')
-        }
-
+        mstest(testResultsFile: '**/Testreulsxm')
+        junit(testResults: 'Junittestresult.xml', allowEmptyResults: true)
       }
     }
   }
