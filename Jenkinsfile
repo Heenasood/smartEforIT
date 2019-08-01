@@ -11,12 +11,11 @@ pipeline {
         stage('Build') {
           steps {
             powershell(script: './build.ps1 -script "./build.cake" -target "Build" -verbosity normal ', returnStatus: true)
-            powershell(script: 'stash includes: \'/dist/**/*\', name: \'builtSources\'', label: 'Stashing')
           }
         }
         stage('Stashing') {
           steps {
-            powershell(script: 'stash includes: \'dist/**/*\', name: \'builtSources\'', encoding: 'stash includes: \'dist/**/*\', name: \'builtSources\'', label: 'Stashed')
+            powershell(script: 'stash includes: \'/dist/**/*\', name: \'builtSources\'', label: 'Stashed', returnStatus: true)
           }
         }
       }
@@ -38,6 +37,20 @@ pipeline {
     stage('Exit/Artifact') {
       steps {
         echo '****Exiting SmartElector pipeline****'
+      }
+    }
+    stage('StashUsingDefaultLink') {
+      parallel {
+        stage('StashUsingDefaultLink') {
+          steps {
+            stash(name: 'builtSourcesthroughinbuild', allowEmpty: true, useDefaultExcludes: true)
+          }
+        }
+        stage('UnstashHere') {
+          steps {
+            unstash 'builtSources'
+          }
+        }
       }
     }
   }
