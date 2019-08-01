@@ -40,17 +40,18 @@ pipeline {
       }
     }
     stage('StashUsingDefaultLink') {
-      parallel {
-        stage('StashUsingDefaultLink') {
-          steps {
-            stash(name: 'builtSourcesthroughinbuild', allowEmpty: true, useDefaultExcludes: true)
-          }
-        }
-        stage('UnstashHere') {
-          steps {
-            unstash 'builtSources'
-          }
-        }
+      steps {
+        stash(name: 'builtSourcesthroughinbuild', allowEmpty: true, useDefaultExcludes: true)
+      }
+    }
+    stage('unstash') {
+      steps {
+        powershell 'unstash \'builtSourcesthroughinbuild\''
+      }
+    }
+    stage('unstash-buildsource') {
+      steps {
+        powershell 'unstash \'builtSources\''
       }
     }
   }
