@@ -7,9 +7,18 @@ pipeline {
       }
     }
     stage('Build') {
-      steps {
-        powershell(script: './build.ps1 -script "./build.cake" -target "Build" -verbosity normal ', returnStatus: true)
-        powershell(script: 'stash includes: \'/dist/**/*\', name: \'builtSources\'', label: 'Stashing')
+      parallel {
+        stage('Build') {
+          steps {
+            powershell(script: './build.ps1 -script "./build.cake" -target "Build" -verbosity normal ', returnStatus: true)
+            powershell(script: 'stash includes: \'/dist/**/*\', name: \'builtSources\'', label: 'Stashing')
+          }
+        }
+        stage('Stashing') {
+          steps {
+            powershell(script: 'stash includes: \'dist/**/*\', name: \'builtSources\'', encoding: 'stash includes: \'dist/**/*\', name: \'builtSources\'', label: 'Stashed')
+          }
+        }
       }
     }
     stage('BClear') {
