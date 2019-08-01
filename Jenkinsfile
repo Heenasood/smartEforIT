@@ -56,7 +56,7 @@ pipeline {
     stage('unstash/testresult') {
       steps {
         unstash 'builtSourcesthroughinbuild'
-        mstest(testResultsFile: '**/Testreulsxm')
+        mstest(testResultsFile: '**/Testreuls.xml')
         junit(testResults: 'Junittestresult.xml', allowEmptyResults: true)
       }
     }
