@@ -2,22 +2,14 @@ pipeline {
   agent any
   stages {
     stage('Enter') {
-      parallel {
-        stage('Enter') {
-          steps {
-            echo '************We are enetering GITHUB for building************'
-          }
-        }
-        stage('') {
-          steps {
-            node(label: 'node')
-          }
-        }
+      steps {
+        echo '************We are enetering GITHUB for building************'
       }
     }
     stage('Build') {
       steps {
-        powershell(script: './build.ps1 -script "./build.cake" -target "Build" -verbosity normal', returnStatus: true)
+        powershell(script: './build.ps1 -script "./build.cake" -target "Build" -verbosity normal ', returnStatus: true)
+        powershell(script: 'stash includes: \'/dist/**/*\', name: \'builtSources\'', label: 'Stashing')
       }
     }
     stage('BClear') {
