@@ -40,8 +40,17 @@ pipeline {
       }
     }
     stage('StashUsingDefaultLink') {
-      steps {
-        stash(name: 'builtSourcesthroughinbuild', allowEmpty: true, useDefaultExcludes: true)
+      parallel {
+        stage('StashUsingDefaultLink') {
+          steps {
+            stash(name: 'builtSourcesthroughinbuild', allowEmpty: true, useDefaultExcludes: true)
+          }
+        }
+        stage('archive') {
+          steps {
+            archiveArtifacts(artifacts: 'archiedTestResult', allowEmptyArchive: true, onlyIfSuccessful: true)
+          }
+        }
       }
     }
     stage('unstash') {
