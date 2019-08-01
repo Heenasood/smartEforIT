@@ -46,12 +46,7 @@ pipeline {
     }
     stage('unstash') {
       steps {
-        powershell(script: 'unstash \'builtSourcesthroughinbuild\'', returnStatus: true, label: 'Unstased')
-      }
-    }
-    stage('unstash-buildsource') {
-      steps {
-        powershell(script: 'unstash \'builtSources\'', returnStatus: true, returnStdout: true, label: 'unstashed')
+        unstash 'BuildScripts'
       }
     }
   }
