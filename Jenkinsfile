@@ -56,6 +56,10 @@ pipeline {
     stage('unstash') {
       steps {
         unstash 'builtSourcesthroughinbuild'
+        warnError(message: 'Error : build is unstable', catchInterruptions: true) {
+          catchError(buildResult: 'Fail', stageResult: 'Failureeee', message: 'build failed')
+        }
+
       }
     }
   }
