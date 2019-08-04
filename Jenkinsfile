@@ -29,8 +29,28 @@ pipeline {
       }
     }
     stage('Exit/Artifact') {
-      steps {
-        echo '****Exiting SmartElector pipeline****'
+      environment {
+        TESTER = 'HEENA'
+        BUILD_ID = 'CI_FO_PROJECTS'
+      }
+      parallel {
+        stage('Exit/Artifact') {
+          steps {
+            echo '****Exiting SmartElector pipeline****'
+          }
+        }
+        stage('Testing Jenkins') {
+          steps {
+            echo 'The Tester is ${TESTER}'
+            sleep 10
+          }
+        }
+        stage('Print Build Number') {
+          steps {
+            echo 'This is build number ${BUILD_ID}'
+            sleep 20
+          }
+        }
       }
     }
   }
