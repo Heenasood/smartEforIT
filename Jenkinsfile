@@ -41,13 +41,13 @@ pipeline {
         }
         stage('Testing Jenkins') {
           steps {
-            echo 'The Tester is ${TESTER}'
+            echo "The Tester is ${TESTER}"
             sleep 10
           }
         }
         stage('Print Build Number') {
           steps {
-            echo 'This is build number ${BUILD_ID}'
+            echo "This is build number ${BUILD_ID}"
             sleep 20
           }
         }
