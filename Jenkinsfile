@@ -46,6 +46,13 @@ pipeline {
           }
         }
         stage('Print Build Number') {
+          post {
+            always {
+              publishTestResults('build\\artifacts\\test-results\\*', 4, 0)
+
+            }
+
+          }
           steps {
             echo "This is build number ${BUILD_ID}"
             sleep 20
