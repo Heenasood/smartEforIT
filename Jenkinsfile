@@ -12,6 +12,9 @@ pipeline {
       }
     }
     stage('BClear') {
+      environment {
+        CI = 'true'
+      }
       parallel {
         stage('BClear') {
           steps {
