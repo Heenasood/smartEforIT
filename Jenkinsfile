@@ -48,7 +48,7 @@ pipeline {
         stage('Print Build Number') {
           post {
             always {
-              publishTestResults('build\\artifacts\\test-results\\*', 4, 0)
+              junit 'test-results.xml'
 
             }
 
