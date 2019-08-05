@@ -24,7 +24,7 @@ pipeline {
         stage('Test') {
           steps {
             powershell(script: './build.ps1 -script "./build.cake" -target "Test" -verbosity normal', returnStatus: true)
-            archiveArtifacts(artifacts: '**/target/*.jar', allowEmptyArchive: true, fingerprint: true)
+            archiveArtifacts(artifacts: '**/*.jar', allowEmptyArchive: true, fingerprint: true)
           }
         }
       }
